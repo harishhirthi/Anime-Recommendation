@@ -136,7 +136,7 @@ with gr.Blocks(theme = theme) as app:
             document.body.classList.toggle('dark');    
         }
         """)
-    clear_btn = gr.ClearButton([anime_title] + outputs) # Clear the entire contents
+    clear_btn = gr.ClearButton([anime_title] + outputs, visible = False) # Clear the entire contents
 
     # To enable submit button once anime is selected
     def enable(anime_title):
@@ -152,14 +152,14 @@ with gr.Blocks(theme = theme) as app:
         return gr.Button(interactive = False)
 
     # To make first 6 anime to get displayed   
-    @gr.on(triggers = [submit_btn.click], inputs = None, outputs = [row_1, show_more_btn_1])
+    @gr.on(triggers = [submit_btn.click], inputs = None, outputs = [row_1, show_more_btn_1, clear_btn])
     def show():
-        return gr.update(visible = True), gr.update(visible = True)
+        return gr.update(visible = True), gr.update(visible = True), gr.update(visible = True)
 
     # To reset the screen layout when clear button is clicked
-    @gr.on(triggers = [clear_btn.click], inputs = None, outputs = [row_1, row_2, show_more_btn_1, show_more_btn_2, row_3])
+    @gr.on(triggers = [clear_btn.click], inputs = None, outputs = [row_1, row_2, show_more_btn_1, show_more_btn_2, row_3, clear_btn])
     def reset():
-        return [gr.update(visible = False), gr.update(visible = False), gr.update(visible = False), gr.update(visible = False), gr.update(visible = False)]
+        return [gr.update(visible = False), gr.update(visible = False), gr.update(visible = False), gr.update(visible = False), gr.update(visible = False), gr.update(visible = False]
     
     # To show next 6 anime
     @gr.on(triggers = [show_more_btn_1.click], inputs = None, outputs = [row_2, show_more_btn_2, show_more_btn_1])
